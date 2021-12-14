@@ -14,17 +14,19 @@ export default class POI extends Component {
         super(props)
         this.state = {
             userLoggedIn: true,
-            baseUrl: 'https://test.api.amadeus.com/v1',
+            baseUrl: 'https://api.amadeus.com/v1',
             apikey: 'M3RJq3uoqlOZYlK0g9Eau2AVrvCwuXgx',
             placeName: '',
-            default: 'https://test.api.amadeus.com/v1/reference-data/locations/pois?latitude=41.397158&longitude=2.160873&radius=1&page%5Blimit%5D=10&page%5Boffset%5D=0',
+            default: 'https://api.amadeus.com/v1/reference-data/locations/pois?latitude=41.397158&longitude=2.160873&radius=1&page%5Blimit%5D=10&page%5Boffset%5D=0',
             searchUrl: '',
             latitude: '',
             longitude: '',
             radius: 1,
             pagelimit: 10,
             pageoffset: 0,
-            categories: ['SIGHTS', 'NIGHTLIFE', 'RESTAURANT', 'SHOPPING']
+            authObject: [],
+            categories: ['SIGHTS', 'NIGHTLIFE', 'RESTAURANT', 'SHOPPING'],
+            authUrl: "https://api.amadeus.com/v1/security/oauth2/token"
 
         }
     }
@@ -39,13 +41,39 @@ export default class POI extends Component {
         })
     }
 
-    getPOI = (event) => {
+    getAuth = () => {
+        this.setState({
+            authUrl: this.state.authUrl
+        }, () => {
+            fetch(this.state.authUrl, {
+                method: 'GET',
+                body: {
+                    d:'grant_type=client_credentials&client_id=M3RJq3uoqlOZYlK0g9Eau2AVrvCwuXgx&client_secret=aVf293vaVRV4aHDK'
+                },
+                headers: {
+                    'Content-Type':'application/x-www-form-urlencoded'
+                },
+            })
+            .then(response => {
+                return response.json()
+            }).then(json => {
+                this.setState({
+                    authObject: json[this.state.access_token],
+                })
+            },
+            (err) => console.log(err))
+        })
+    }
+    getPOI = async (event) => {
         event.preventDefault()
+        const result = await this.getAuth()
         this.setState({
             searchUrl: this.state.baseUrl + "/reference-data/locations/pois?latitude=" + this.state.latitude + "&longitude=" + this.state.longitude + "&radius=1&page%5Blimit%5D=10&page%5Boffset%5D=0"
         }, () => {
             fetch(this.state.searchUrl, {
-
+                headers: {
+                    'Authorization': 'Bearer ' + result
+                }
             })
             .then(response => {
                 return response.json()
@@ -59,7 +87,12 @@ export default class POI extends Component {
             (err) => console.log(err))
         })
     }
+    componentDidMount() {
+        this.getAuth()
+    }
+
     render() {
+        console.log(this.state.authObject)
         return (
             <>
             <Slide left>

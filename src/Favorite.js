@@ -22,7 +22,7 @@ export default class Favorite extends Component {
             type: '',
             latitude: '',
             longitude: '',
-            userLoggedIn: true
+            userLoggedIn: true,
 
         }
     }
@@ -125,7 +125,8 @@ export default class Favorite extends Component {
         console.log(this.state.favoritePlaces)
         return (
             <>
-            
+
+            <div>
             <h1>My Favorite Places</h1>
             <NewForm baseUrl={baseUrl} addFavoritePlaces={this.addFavoritePlaces}/>
             <table>
@@ -165,6 +166,9 @@ export default class Favorite extends Component {
                     <input type="submit" value="Make Changes"></input>
                 </form>
             }
+            </div>
+
+        ) 
             </>
         )
     }
