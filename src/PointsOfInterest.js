@@ -48,14 +48,13 @@ export default class POI extends Component {
         }, () => {
             fetch(this.state.authUrl, {
                 method: 'GET',
-                body: {
-                     d:`grant_type=client_credentials&client_id=${clientId}&client_secret=${clientSecret}`
-                },
+                body: `grant_type=client_credentials&client_id=${clientId}&client_secret=${clientSecret}`,
                 headers: {
                     'Content-Type':'application/x-www-form-urlencoded'
                 },
             })
             .then(response => {
+                console.log(response.json)
                 return response.json()
             }).then(json => {
                 this.setState({

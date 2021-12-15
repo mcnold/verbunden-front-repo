@@ -27,7 +27,7 @@ export default class Favorite extends Component {
         }
     }
     getFavoritePlaces = () => {
-        fetch(baseUrl + '/favoriteplaces/', {
+        fetch(baseUrl + '/favoriteplaces', {
           credentials: 'include'
         })
         .then(res => {
