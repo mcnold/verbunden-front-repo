@@ -15,6 +15,7 @@ import Video from './Video'
 
 let baseUrl = process.env.REACT_APP_API_URL
 
+
 export default class App extends Component {
     constructor(props) {
         super(props) 

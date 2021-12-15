@@ -3,6 +3,7 @@ import Slide from 'react-reveal/Slide'
 import Lightspeed from 'react-reveal/LightSpeed'
 
 let baseUrl = process.env.REACT_APP_API_URL
+
 export default class NewForm extends Component {
     constructor(props) {
         super(props)
