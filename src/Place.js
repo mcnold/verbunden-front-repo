@@ -5,7 +5,7 @@ import Facebook from './Facebook'
 import Twitter from './Twitter'
 import Pinterest from './Pinterest'
 
-let baseUrl = "http://localhost:8000"
+let baseUrl = process.env.REACT_APP_API_URL
 
 export default function Place() {
     const [place, setPlace] = useState(null)

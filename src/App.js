@@ -13,6 +13,7 @@ import './App.css'
 import Fade from 'react-reveal/Fade'
 import Video from './Video'
 
+let baseUrl = process.env.REACT_APP_API_URL
 
 export default class App extends Component {
     constructor(props) {

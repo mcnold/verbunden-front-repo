@@ -6,7 +6,7 @@ import Place from './Place'
 import Flip from 'react-reveal/Flip'
 
 
-let baseUrl = "http://localhost:8000"
+let baseUrl = process.env.REACT_APP_API_URL
 
 export default class Favorite extends Component {
     constructor(props) {
@@ -168,7 +168,7 @@ export default class Favorite extends Component {
             }
             </div>
 
-        ) 
+         
             </>
         )
     }

@@ -4,7 +4,7 @@ import {useNavigate} from 'react-router-dom'
 import Slide from 'react-reveal/Slide'
 import Lightspeed from 'react-reveal/LightSpeed'
 
-let baseUrl = 'http://localhost:8000'
+let baseUrl = process.env.REACT_APP_API_URL
 
 export default class Register extends Component {
     constructor(props) {

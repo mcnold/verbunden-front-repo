@@ -3,7 +3,7 @@ import Favorite from './Favorite'
 import Slide from 'react-reveal/Slide'
 import LightSpeed from 'react-reveal/LightSpeed'
 
-let baseUrl = 'http://localhost:8000'
+let baseUrl = process.env.REACT_APP_API_URL
 
 
 export default class App extends Component {

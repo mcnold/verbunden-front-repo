@@ -5,8 +5,8 @@ import Slide from 'react-reveal/Slide'
 import Lightspeed from 'react-reveal/LightSpeed'
 
 const amadeus = new Amadeus({
-    clientId: 'M3RJq3uoqlOZYlK0g9Eau2AVrvCwuXgx',
-    clientSecret: 'aVf293vaVRV4aHDK'
+    clientId: process.env.API_KEY,
+    clientSecret: process.env.API_SECRET
   });
 
 export default class POI extends Component {
@@ -15,7 +15,6 @@ export default class POI extends Component {
         this.state = {
             userLoggedIn: true,
             baseUrl: 'https://api.amadeus.com/v1',
-            apikey: 'M3RJq3uoqlOZYlK0g9Eau2AVrvCwuXgx',
             placeName: '',
             default: 'https://api.amadeus.com/v1/reference-data/locations/pois?latitude=41.397158&longitude=2.160873&radius=1&page%5Blimit%5D=10&page%5Boffset%5D=0',
             searchUrl: '',
@@ -48,7 +47,7 @@ export default class POI extends Component {
             fetch(this.state.authUrl, {
                 method: 'GET',
                 body: {
-                    d:'grant_type=client_credentials&client_id=M3RJq3uoqlOZYlK0g9Eau2AVrvCwuXgx&client_secret=aVf293vaVRV4aHDK'
+                    d:`grant_type=client_credentials&client_id=${this.process.env.API_KEY}&client_secret=${this.process.env.API_SECRET}`
                 },
                 headers: {
                     'Content-Type':'application/x-www-form-urlencoded'
@@ -72,7 +71,7 @@ export default class POI extends Component {
         }, () => {
             fetch(this.state.searchUrl, {
                 headers: {
-                    'Authorization': 'Bearer ' + result
+                    'Authorization': 'Bearer' + result
                 }
             })
             .then(response => {
