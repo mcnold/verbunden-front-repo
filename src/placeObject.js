@@ -13,8 +13,8 @@ render () {
         <Slide right>
         <h4>Name: {this.props.placeObject.data.name}</h4>
         <p>Category: {this.props.placeObject.data.category}</p>
-        <p>24 Hr Vol: {this.props.placeObject.data.rank}</p>
-        <p>24 Hr Change: {this.props.placeObject.data.tags}</p>
+        <p>Rank: {this.props.placeObject.data.rank}</p>
+        <p>Tags: {this.props.placeObject.data.tags}</p>
         </Slide>
         </div>
         </>

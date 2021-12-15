@@ -3,6 +3,7 @@ import Geolocation from './Geolocation'
 import Amadeus from 'amadeus'
 import Slide from 'react-reveal/Slide'
 import Lightspeed from 'react-reveal/LightSpeed'
+import placeObject from './placeObject'
 
 const amadeus = new Amadeus({
     clientId: process.env.API_KEY,
@@ -124,6 +125,7 @@ export default class POI extends Component {
             />
             </Lightspeed>
             </form>
+            <placeObject/>
             </>
         )
     }
