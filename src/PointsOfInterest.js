@@ -4,10 +4,10 @@ import Amadeus from 'amadeus'
 import Slide from 'react-reveal/Slide'
 import Lightspeed from 'react-reveal/LightSpeed'
 
-const amadeus = new Amadeus({
-    clientId: process.env.API_KEY,
-    clientSecret: process.env.API_SECRET
-  });
+
+let clientId= process.env.REACT_APP_API_KEY
+let clientSecret= process.env.REACT_APP_API_SECRET
+
 
 export default class POI extends Component {
     constructor(props) {
@@ -41,13 +41,15 @@ export default class POI extends Component {
     }
 
     getAuth = () => {
+        console.log(clientId, clientSecret)
+        console.log(this.state.authUrl)
         this.setState({
             authUrl: this.state.authUrl
         }, () => {
             fetch(this.state.authUrl, {
                 method: 'GET',
                 body: {
-                    d:`grant_type=client_credentials&client_id=${this.process.env.API_KEY}&client_secret=${this.process.env.API_SECRET}`
+                     d:`grant_type=client_credentials&client_id=${clientId}&client_secret=${clientSecret}`
                 },
                 headers: {
                     'Content-Type':'application/x-www-form-urlencoded'
@@ -57,7 +59,7 @@ export default class POI extends Component {
                 return response.json()
             }).then(json => {
                 this.setState({
-                    authObject: json[this.state.access_token],
+                    authObject: json,
                 })
             },
             (err) => console.log(err))
@@ -65,13 +67,14 @@ export default class POI extends Component {
     }
     getPOI = async (event) => {
         event.preventDefault()
-        const result = await this.getAuth()
+        await this.getAuth()
+        console.log(this.state.authObject)
         this.setState({
             searchUrl: this.state.baseUrl + "/reference-data/locations/pois?latitude=" + this.state.latitude + "&longitude=" + this.state.longitude + "&radius=1&page%5Blimit%5D=10&page%5Boffset%5D=0"
         }, () => {
             fetch(this.state.searchUrl, {
                 headers: {
-                    'Authorization': 'Bearer' + result
+                    "Authorization": "Bearer " + this.state.authObject
                 }
             })
             .then(response => {
