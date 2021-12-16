@@ -5,11 +5,11 @@ import Slide from 'react-reveal/Slide'
 import Lightspeed from 'react-reveal/LightSpeed'
 
 const amadeus = new Amadeus({
-    clientId: process.env.REACT_APP_API_KEY,
-    clientSecret: process.env.REACT_APP_API_SECRET,
+    client_Id: process.env.REACT_APP_API_KEY,
+    client_Secret: process.env.REACT_APP_API_SECRET,
     hostname: 'production'
 });
-
+console.log(amadeus.clientId, amadeus.clientSecret)
 export default class POI extends Component {
     constructor(props) {
         super(props)
@@ -41,16 +41,16 @@ export default class POI extends Component {
         })
     }
 
-    tryPOI = (latitude, longitude) => {
-        amadeus.referenceData.locations.pointsOfInterest.get({
-            latitude: this.state.latitude,
-            longitude: this.state.longitude
-          }).then(function (response) {
-            console.log(response);
-          }).catch(function (response) {
-            console.error(response);
-          });
-    }
+    // tryPOI = (latitude, longitude) => {
+    //     amadeus.referenceData.locations.pointsOfInterest.get({
+    //         latitude: this.state.latitude,
+    //         longitude: this.state.longitude
+    //       }).then(function (response) {
+    //         console.log(response);
+    //       }).catch(function (response) {
+    //         console.error(response);
+    //       });
+    // }
 
     getAuth = () => {
         console.log(amadeus.clientId, amadeus.clientSecret)
@@ -60,7 +60,7 @@ export default class POI extends Component {
         }, () => {
             fetch(this.state.authUrl, {
                 method: 'GET',
-                body: `grant_type=client_credentials&client_id=${amadeus.clientId}&client_secret=${amadeus.clientSecret}`,
+                body: `grant_type=client_credentials&client_id=${amadeus.client_Id}&client_secret=${amadeus.client_Secret}`,
                 headers: {
                     'Content-Type':'application/x-www-form-urlencoded'
                 },
@@ -112,7 +112,7 @@ export default class POI extends Component {
             <h1>Points of Interest</h1>
             </Slide>
             <Geolocation favoritePlaces={this.state.favoritePlaces}/>
-            <form onSubmit={this.tryPOI}>
+            <form onSubmit={this.getPOI}>
             <label>Find Points of Interest(Lat,Long)</label>
             <Lightspeed right>
             <input
