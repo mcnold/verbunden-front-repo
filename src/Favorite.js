@@ -39,7 +39,7 @@ export default class Favorite extends Component {
           }
         }).then(data => {
           console.log(data)
-        //   this.setState({favoritePlaces: data.data})
+          this.setState({favoritePlaces: data.data})
         })
       }
     addFavoritePlaces = (newFavoritePlace) => {
