@@ -27,7 +27,8 @@ export default class Favorite extends Component {
         }
     }
     getFavoritePlaces = () => {
-        fetch(baseUrl + '/favoriteplaces', {
+        console.log(baseUrl)
+        fetch(baseUrl + '/favoriteplaces/', {
           credentials: 'include'
         })
         .then(res => {
@@ -38,7 +39,7 @@ export default class Favorite extends Component {
           }
         }).then(data => {
           console.log(data)
-          this.setState({favoritePlaces: data.data})
+        //   this.setState({favoritePlaces: data.data})
         })
       }
     addFavoritePlaces = (newFavoritePlace) => {

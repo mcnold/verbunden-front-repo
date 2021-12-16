@@ -71,7 +71,7 @@ export default class NewForm extends Component {
         }).then(res => {
             return res.json()
         }).then(data => {
-            this.props.addPlace(data.data)
+            this.props.addFavoritePlaces(data.data)
             this.setState({
                 url: '',
                 place: '',
